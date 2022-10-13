@@ -1,0 +1,103 @@
+
+#include <iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+class TreeNode{
+    public:
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+    
+    TreeNode(){
+        value=0;
+        right=NULL;
+        left=NULL;
+    }
+    TreeNode(int v){
+        value=v;
+        right=NULL;
+        left=NULL;
+    }
+    
+};
+
+class Bst{
+    public:
+    TreeNode* root;
+    
+    Bst(){
+        root=NULL;
+    }
+    
+    bool isEmpty(){
+        if(!root){
+            return  true;
+        }else{
+            return false;
+        }
+    }
+    
+     void insertNode(TreeNode* n){
+        if(!root){
+            root=n;
+            cout<<"First Node inserted"<<endl;
+        }else{
+            TreeNode* temp=root;
+            while(temp){
+                if(n->value==temp->value){
+                    cout<<"No duplicated allowed"<<endl;
+                }else if((n->value < temp->value) && (temp->left==NULL)){
+                    temp->left=n;
+                    cout<<"Node inserted on left"<<endl;
+                    break;
+                }else if(n->value < temp->value){
+                    temp=temp->left;
+                }else if((n->value>temp->value) && (temp->right==NULL)){
+                    temp->right=n;
+                    cout<<"Node inserted at the right"<<endl;
+                    break;
+                }else{
+                    temp=temp->right;
+                }
+            }
+        }
+    }
+    
+    void printPreOrder(TreeNode* r){
+        if(!r) return;
+        cout<<r->value<<"->";
+        printPreOrder(r->left);
+        printPreOrder(r->right);
+    }
+    
+    void printInOrder(TreeNode* r){
+        if(!r) return;
+        printInOrder(r->left);
+        cout<<r->value<<"->";
+        printInOrder(r->right);
+    }
+    
+    void printPostOrder(TreeNode* r){
+        if(!r) return;
+        printInOrder(r->left);
+        printInOrder(r->right);
+        cout<<r->value<<"->";
+    }
+    
+};
+
+int main() {
+    Bst b;
+    TreeNode* n1 = new TreeNode(10);
+    TreeNode* n2 = new TreeNode(20);
+    TreeNode* n3 = new TreeNode(5);
+    TreeNode* n4 = new TreeNode(4);
+    TreeNode* n5 = new TreeNode(23);
+    b.insertNode(n1);
+    b.insertNode(n2);
+    b.insertNode(n3);
+    b.insertNode(n4);
+    b.insertNode(n5);
+    b.printPreOrder(n1);
+}
